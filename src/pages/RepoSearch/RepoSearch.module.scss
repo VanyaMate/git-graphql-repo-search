@@ -1,0 +1,7 @@
+@import "consts/consts";
+
+.container {
+    &.fetching {
+        animation: loading .5s infinite ease-in-out;
+    }
+}

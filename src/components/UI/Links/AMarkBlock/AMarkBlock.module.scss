@@ -1,0 +1,9 @@
+@import "consts/consts";
+
+.mark {
+    padding: $smallOffset;
+
+    &:hover {
+        background: $lightBlack !important;
+    }
+}

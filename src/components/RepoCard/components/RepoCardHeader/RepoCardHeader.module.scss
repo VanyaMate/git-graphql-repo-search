@@ -1,0 +1,29 @@
+@import "../../../../../consts/consts";
+
+.header {
+    padding-bottom: $mediumOffset;
+    margin-bottom: $mediumOffset;
+    border-bottom: 1px dotted $grayBlack;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+
+    .title {
+        display: flex;
+
+        .name {
+            font-size: 20px;
+            padding-right: $mediumOffset;
+        }
+    }
+
+    .marks {
+        & > * {
+            margin-left: $smallOffset;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}

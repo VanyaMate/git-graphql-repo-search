@@ -1,0 +1,27 @@
+@import "consts/consts";
+
+.markItem {
+    display: inline-flex;
+    border-radius: $smallOffset;
+    height: 40px;
+    padding: 2px $smallOffset;
+    font-size: 12px;
+    color: $white;
+    position: relative;
+    white-space: nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    .before {
+        color: $lightGray;
+    }
+
+    .mark {
+        display: inline-block;
+        padding: 2px $smallOffset;
+        background: rgba(255, 255, 255, .1);
+        border-radius: $smallOffset;
+        margin: $smallOffset;
+        margin-right: 0;
+    }
+}

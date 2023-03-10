@@ -1,0 +1,13 @@
+@import "consts/consts";
+
+.noResultTitle {
+    font-size: 20px;
+    padding: $bigOffset;
+    color: $lightGray;
+    text-align: center;
+    font-weight: normal;
+
+    &.loading {
+        animation: loading .5s infinite ease-in-out;
+    }
+}

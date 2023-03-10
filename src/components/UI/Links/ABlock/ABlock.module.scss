@@ -1,0 +1,13 @@
+@import "consts/consts";
+
+.link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid transparent;
+    font-size: 12px;
+    text-decoration: none;
+    color: $lightGray;
+    border-radius: 5px;
+    transition: .1s;
+}

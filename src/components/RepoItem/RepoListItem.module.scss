@@ -1,0 +1,53 @@
+@import "consts/consts";
+
+.item {
+    margin-top: $mediumOffset;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+
+    & > * {
+        margin-left: $smallOffset;
+        height: 40px;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+
+    .link {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: $lightGray;
+        transition: .1s;
+        padding-right: $smallOffset;
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            color: $white;
+        }
+    }
+
+    .gitLink {
+        border: 1px dotted $markRedLight;
+        height: 40px;
+        width: 70px;
+
+        &:hover {
+            border: 1px dotted $markBlueLight;
+        }
+    }
+
+    .stars {
+        min-width: 13%;
+        max-width: 13%;
+    }
+
+    .commit {
+        min-width: 35%;
+        max-width: 35%;
+    }
+}

@@ -1,0 +1,48 @@
+@import 'consts/consts';
+
+.header {
+    width: 100%;
+    height: 60px;
+    background: $grayBlack;
+    display: flex;
+    justify-content: center;
+
+    .content {
+        width: $contentWidth;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .link {
+            min-width: 100px;
+            max-width: 100px;
+            text-decoration: none;
+            transition: .05s ease-in-out;
+            opacity: 1;
+            overflow: hidden;
+            margin-right: $mediumOffset;
+
+            &.hidden {
+                min-width: 0;
+                max-width: 0;
+                margin-right: 0;
+                opacity: 0;
+            }
+        }
+
+        .backButton {
+            width: 100px;
+            height: 50px;
+        }
+
+        .input {
+            width: 100%;
+            height: 50px;
+            background: $darkBlack !important;
+
+            & > * {
+                font-size: 16px;
+            }
+        }
+    }
+}

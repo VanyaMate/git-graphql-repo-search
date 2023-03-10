@@ -1,0 +1,28 @@
+@import "consts/consts";
+
+.button {
+    display: inline-flex;
+    height: 40px;
+    border: 1px solid $markRedLight;
+    color: $lightBlack;
+    pointer-events: none;
+    transition: .1s;
+    border-radius: 10px;
+
+    justify-content: center;
+    align-items: center;
+    text-decoration: none !important;
+
+    &.active {
+        background: $darkBlack;
+        border: 1px solid transparent;
+        color: $lightGray;
+        pointer-events: auto;
+        cursor: pointer;
+
+        &:hover {
+            border: 1px solid $markBlueLight;
+            color: $white;
+        }
+    }
+}

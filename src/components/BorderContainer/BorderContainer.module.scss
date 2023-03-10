@@ -1,0 +1,8 @@
+@import "consts/consts";
+
+.container {
+    border: 2px dotted $grayBlack;
+    border-radius: $mediumOffset;
+    padding: $mediumOffset;
+    box-shadow: $defaultBoxShadow;
+}
