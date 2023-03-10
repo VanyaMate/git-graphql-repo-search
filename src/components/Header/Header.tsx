@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Link,
     useNavigate,
@@ -19,10 +19,25 @@ const Header = () => {
     const debounce = useDebounce(input.value, 500);
     const [dispatchSearch, { isFetching }] = useLazyGetReposDataQuery();
     const {setGraphGitData, setFetching} = useActions();
+    const [fillInput, setFillInput] = useState(!!input.value);
 
     useEffect(() => {
         setFetching(isFetching);
     }, [isFetching])
+
+    useEffect(() => {
+        if (debounce !== '') {
+            makeQuery(debounce as string);
+        }
+    }, [debounce])
+
+    // Нужно для заполнения строки после возвращения назад, если она пустая, а q= не пустой. Заполняется 1 раз.
+    useEffect(() => {
+        if (urlParams.q && !fillInput) {
+            input.onChange(urlParams.q);
+            setFillInput(true);
+        }
+    }, [urlParams])
 
     const getQueryLink = (value: string) => value ? `/?q=${value}` : '/';
 
@@ -45,14 +60,6 @@ const Header = () => {
             });
     }
 
-    useEffect(() => {
-        if (debounce !== '') {
-            makeQuery(debounce as string);
-        }
-    }, [debounce])
-
-
-
     return (
         <div className={css.header}>
             <div className={css.content}>
@@ -63,7 +70,7 @@ const Header = () => {
                         history.back();
                     }}
                 >
-                    Главная
+                    Назад
                 </Button>
                 <Input
                     hook={input}
