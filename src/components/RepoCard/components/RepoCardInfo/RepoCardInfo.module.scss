@@ -46,6 +46,7 @@
         .languages {
             & > * {
                 margin-right: $smallOffset;
+                margin-bottom: $smallOffset;
 
                 &:last-child {
                     margin-right: 0;

@@ -2,10 +2,10 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 import {GIT_SECRET_KEY} from "../../../consts/secrets";
 import {
     IRepoGetProps,
-    IRepoSearchProps, IRepositoryItem, IRepositorySearchCursors,
-    IRepositorySearchData, repositoryGetQuery, repositorySearchCursor,
+    IRepoSearchProps, IRepositoriesOfViewer, IRepositoryItem, IRepositorySearchCursors,
+    IRepositorySearchData, IRepoViewerProps, repositoryGetQuery, repositorySearchCursor,
     repositorySearchData,
-    repositorySearchQuery
+    repositorySearchQuery, repositoryViewerQuery
 } from "../../graphql-queries/search";
 
 const defaultHeaders = {
@@ -66,8 +66,24 @@ export const graphqlGitApi = createApi({
             transformResponse: (response: { data: { repository: IRepositoryItem } }) => {
                 return response.data.repository;
             }
-        })
+        }),
+        getViewerRepos: build.query<
+            IRepositoriesOfViewer,
+            IRepoViewerProps
+            >({
+            query: (props) => ({
+                url: '',
+                method: 'post',
+                headers: defaultHeaders,
+                body: JSON.stringify({
+                    query: repositoryViewerQuery(props)
+                })
+            }),
+            transformResponse: (response: { data: { viewer: { repositories: IRepositoriesOfViewer } } }) => {
+                return response.data.viewer.repositories;
+            }
+        }),
     })
 })
 
-export const {useLazyGetReposDataQuery, useLazyGetRepoQuery} = graphqlGitApi;
+export const {useLazyGetReposDataQuery, useLazyGetRepoQuery, useGetViewerReposQuery} = graphqlGitApi;

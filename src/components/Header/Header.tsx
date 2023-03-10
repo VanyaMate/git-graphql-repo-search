@@ -13,8 +13,8 @@ import {useLazyGetReposDataQuery} from "../../store/graphql-git/graphql-git.api"
 import {useActions} from "../../hooks/reduxHooks";
 
 const Header = () => {
-    const {location, getPrams} = useLinkParams();
-    const input = useInputValue(getPrams.q ?? '');
+    const {location, urlParams} = useLinkParams();
+    const input = useInputValue(urlParams.q ?? '');
     const navigate = useNavigate();
     const debounce = useDebounce(input.value, 500);
     const [dispatchSearch, { isFetching }] = useLazyGetReposDataQuery();
@@ -51,20 +51,20 @@ const Header = () => {
         }
     }, [debounce])
 
+
+
     return (
         <div className={css.header}>
             <div className={css.content}>
-                <Link
-                    to={'/'}
-                    className={[css.link, location.pathname === '/' ? css.hidden : ''].join(' ')}
+                <Button
+                    active
+                    className={[css.backButton, css.link, location.pathname === '/' ? css.hidden : ''].join(' ')}
+                    onClick={() => {
+                        history.back();
+                    }}
                 >
-                    <Button
-                        active
-                        className={css.backButton}
-                    >
-                        Главная
-                    </Button>
-                </Link>
+                    Главная
+                </Button>
                 <Input
                     hook={input}
                     className={css.input}

@@ -19,7 +19,7 @@ const parseGetParams = function (link: string): getParams {
 
 export const useLinkParams = function () {
     const location = useLocation();
-    const getPrams: getParams = parseGetParams(decodeURI(location.search));
+    const urlParams: getParams = parseGetParams(decodeURI(location.search));
 
-    return { location, getPrams };
+    return { location, urlParams };
 }

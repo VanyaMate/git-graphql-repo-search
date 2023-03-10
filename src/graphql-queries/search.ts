@@ -140,3 +140,34 @@ export const repositoryGetQuery = (props: { owner: string, name: string }) => `
         }
     }
 `;
+
+export interface IRepoViewerProps {
+    first?: number,
+    last?: number,
+    after?: string,
+    before?: string,
+}
+
+export interface IRepositoriesOfViewer {
+    totalCount: number,
+    edges: {
+        cursor: string,
+        node: IRepositoryItem
+    }[]
+}
+
+export const repositoryViewerQuery = (props: IRepoViewerProps) => `    
+    query {
+        viewer {
+            repositories (first: 10) {
+                totalCount
+                edges {
+                    cursor
+                    node {
+                        ${repositoryItem}
+                    }
+                }
+            }
+        }
+    }
+`;
