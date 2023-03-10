@@ -26,15 +26,17 @@ const RepoCardInfo = (repo: IRepositoryItem) => {
                 </div>
                 <div className={css.languages}>
                     {
-                        repo.languages.edges.map((item) => {
-                            return <MarkSpan
-                                key={item.node.name}
-                                color={item.node.color}
-                                before={item.node.name}
-                            >
-                                {(item.size * languagesSize).toFixed(2)} %
-                            </MarkSpan>
-                        })
+                        [...repo.languages.edges]
+                            .sort((a, b) => b.size - a.size)
+                            .map((item) => {
+                                return <MarkSpan
+                                    key={item.node.name}
+                                    color={item.node.color}
+                                    before={item.node.name}
+                                >
+                                    {(item.size * languagesSize).toFixed(2)} %
+                                </MarkSpan>
+                            })
                     }
                 </div>
             </div>
