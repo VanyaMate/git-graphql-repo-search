@@ -1,0 +1,8 @@
+@import "consts/consts";
+
+.empty {
+    display: inline-block;
+    font-size: 33px;
+    padding: 0 $smallOffset;
+    color: $grayBlack;
+}

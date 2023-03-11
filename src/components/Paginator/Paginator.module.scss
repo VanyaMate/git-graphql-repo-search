@@ -1,0 +1,13 @@
+@import "consts/consts";
+
+.paginator {
+    width: 100%;
+    margin-top: $mediumOffset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .items {
+        position: relative;
+    }
+}
