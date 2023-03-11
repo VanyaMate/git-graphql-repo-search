@@ -1,4 +1,5 @@
 import {useLocation} from "react-router-dom";
+import {useMemo} from "react";
 
 export type getParams = { [key: string]: string };
 
@@ -19,7 +20,7 @@ const parseGetParams = function (link: string): getParams {
 
 export const useLinkParams = function () {
     const location = useLocation();
-    const urlParams: getParams = parseGetParams(decodeURI(location.search));
+    const urlParams: getParams = useMemo(() => parseGetParams(decodeURI(location.search)), [location]);
 
     return { location, urlParams };
 }

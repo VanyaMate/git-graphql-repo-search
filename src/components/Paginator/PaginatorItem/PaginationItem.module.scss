@@ -4,9 +4,6 @@
     padding: $smallOffset;
     min-width: 40px;
 
-    margin-right: $smallOffset;
-
-    &:last-child {
-        margin-right: 0;
-    }
+    margin-right: 3px;
+    margin-left: 3px;
 }

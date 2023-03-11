@@ -28,3 +28,5 @@ export const getStringDate = function (dateMS: number) {
 
     return `${year} / ${day} ${month} / ${showedHours}:${showedMinutes}:${showedSeconds}`;
 }
+
+export const getQueryLink = (value: string, page?: number) => value ? `/?q=${value}&p=${page ?? 1}` : '/';

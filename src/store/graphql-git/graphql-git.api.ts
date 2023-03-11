@@ -35,7 +35,7 @@ export const graphqlGitApi = createApi({
                 return response.data.search;
             }
         }),
-        getReposCursors: build.query<
+        getReposCursor: build.query<
             IRepositorySearchCursors,
             IRepoSearchProps
         >({
@@ -70,7 +70,7 @@ export const graphqlGitApi = createApi({
         getViewerRepos: build.query<
             IRepositoriesOfViewer,
             IRepoViewerProps
-            >({
+        >({
             query: (props) => ({
                 url: '',
                 method: 'post',
@@ -86,4 +86,10 @@ export const graphqlGitApi = createApi({
     })
 })
 
-export const {useLazyGetReposDataQuery, useLazyGetRepoQuery, useGetViewerReposQuery} = graphqlGitApi;
+export const {
+    useLazyGetReposDataQuery,
+    useLazyGetRepoQuery,
+    useGetViewerReposQuery,
+    useLazyGetViewerReposQuery,
+    useLazyGetReposCursorQuery
+} = graphqlGitApi;

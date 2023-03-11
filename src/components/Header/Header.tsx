@@ -11,6 +11,8 @@ import {useLinkParams} from "../../hooks/useLinkParams";
 import {useDebounce} from "../../hooks/useDebounce";
 import {useLazyGetReposDataQuery} from "../../store/graphql-git/graphql-git.api";
 import {useActions} from "../../hooks/reduxHooks";
+import {getQueryLink} from "../../helpers/helpers";
+import {useCursorGetter} from "../../hooks/useCursorGetter";
 
 const Header = () => {
     const {location, urlParams} = useLinkParams();
@@ -19,7 +21,8 @@ const Header = () => {
     const debounce = useDebounce(input.value, 500);
     const [dispatchSearch, { isFetching }] = useLazyGetReposDataQuery();
     const {setGraphGitData, setFetching} = useActions();
-    const [fillInput, setFillInput] = useState(!!input.value);
+    const [firstLoad, setFirstLoad] = useState(true);
+    const {result, fetching} = useCursorGetter(urlParams.q, +urlParams.p - 1);
 
     useEffect(() => {
         setFetching(isFetching);
@@ -27,33 +30,34 @@ const Header = () => {
 
     useEffect(() => {
         if (debounce !== '') {
-            makeQuery(debounce as string);
+            makeQuery(debounce as string, firstLoad && urlParams.p ? +urlParams.p : 1);
         }
+        setFirstLoad(false);
     }, [debounce])
 
-    // Нужно для заполнения строки после возвращения назад, если она пустая, а q= не пустой. Заполняется 1 раз.
     useEffect(() => {
-        if (urlParams.q && !fillInput) {
+        if (urlParams.q) {
             input.onChange(urlParams.q);
-            setFillInput(true);
         }
-    }, [urlParams])
+        if (!fetching && urlParams.p) {
+            makeQuery(input.value, +urlParams.p, result);
+        }
+    }, [urlParams, fetching])
 
-    const getQueryLink = (value: string) => value ? `/?q=${value}` : '/';
-
-    const makeQuery = function (value: string) {
-        if (isFetching) return;
-
-        navigate(getQueryLink(value));
+    const makeQuery = function (value: string, page?: number, after?: string) {
+        if (+urlParams.p !== page || urlParams.q !== value) {
+            navigate(getQueryLink(value, page ?? 1));
+        }
 
         if (value.length === 0) return;
         dispatchSearch({
             search: value,
-            first: 10
+            first: 10,
+            after
         })
             .then(({ data }) => {
                 data && setGraphGitData({
-                    page: 1,
+                    page: page ?? 1,
                     totalPages: Math.ceil(data.repositoryCount / 10),
                     items: data.edges
                 });
@@ -76,7 +80,7 @@ const Header = () => {
                     hook={input}
                     className={css.input}
                     placeholder={'Поиск'}
-                    icon={'http://localhost:5173/src/assets/icons/search-bar.png'}
+                    icon={'/src/assets/icons/search-bar.png'}
                     onKeyDown={(e) =>
                         e.key === 'Enter' && makeQuery(input.value)
                     }

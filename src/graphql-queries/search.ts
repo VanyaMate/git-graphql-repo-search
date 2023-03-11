@@ -94,13 +94,15 @@ export const repositorySearchData = `
 
 export interface IRepositorySearchCursors {
     repositoryCount: number,
-    edges: { cursor: string }[]
+    pageInfo: {
+        endCursor: string
+    }
 }
 
 export const repositorySearchCursor = `
     repositoryCount
-    edges {
-        cursor
+    pageInfo {
+        endCursor
     }
 `;
 
