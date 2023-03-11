@@ -81,7 +81,7 @@ const Header = () => {
                     hook={input}
                     className={css.input}
                     placeholder={'Поиск'}
-                    icon={'/src/assets/icons/search-bar.png'}
+                    icon={'https://psv4.userapi.com/c235131/u290042690/docs/d21/a758e4c1a325/search-bar.png?extra=cHirmHIs-lOGn9bbVudhIqlDtwm3sn2Yzt30qDq0EXbjAgm2yGsCvN5_YHOvWrarLfuBW62lkJwrpa0D7QSza4iZme7BBFZdhGiE7-XU8Q24VzVHM_WinlcF2umBADNBvjMBl6JRasw-xszP29Nizfxo7UA'}
                     onKeyDown={(e) =>
                         e.key === 'Enter' && makeQuery(input.value)
                     }

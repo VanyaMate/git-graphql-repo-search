@@ -14,7 +14,6 @@ const RepoSearch = memo(() => {
     const graphqlGit = useMySelector((state) => state["graphql-git"]);
     const {urlParams} = useLinkParams();
     const {result, fetching} = useCursorGetter(urlParams.q, +urlParams.p - 1);
-    console.log(fetching);
     const { isFetching, data } = useGetViewerReposQuery({
         first: 10,
         after: result
