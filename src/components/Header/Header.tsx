@@ -10,7 +10,7 @@ import Button from "../UI/Buttons/Button/Button";
 import {useLinkParams} from "../../hooks/useLinkParams";
 import {useDebounce} from "../../hooks/useDebounce";
 import {useLazyGetReposDataQuery} from "../../store/graphql-git/graphql-git.api";
-import {useActions} from "../../hooks/reduxHooks";
+import {useActions, useMySelector} from "../../hooks/reduxHooks";
 import {getQueryLink} from "../../helpers/helpers";
 import {useCursorGetter} from "../../hooks/useCursorGetter";
 
@@ -23,13 +23,14 @@ const Header = () => {
     const {setGraphGitData, setFetching} = useActions();
     const [firstLoad, setFirstLoad] = useState(true);
     const {result, fetching} = useCursorGetter(urlParams.q, +urlParams.p - 1);
+    const graphqlStore = useMySelector((state) => state["graphql-git"])
 
     useEffect(() => {
         setFetching(isFetching);
     }, [isFetching])
 
     useEffect(() => {
-        if (debounce !== '') {
+        if (debounce !== '' && !fetching) {
             makeQuery(debounce as string, firstLoad && urlParams.p ? +urlParams.p : 1);
         }
         setFirstLoad(false);
@@ -39,7 +40,7 @@ const Header = () => {
         if (urlParams.q) {
             input.onChange(urlParams.q);
         }
-        if (!fetching && urlParams.p) {
+        if (!fetching && urlParams.p && graphqlStore.page !== +urlParams.p) {
             makeQuery(input.value, +urlParams.p, result);
         }
     }, [urlParams, fetching])

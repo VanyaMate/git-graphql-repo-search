@@ -1,14 +1,16 @@
 import {useLazyGetReposCursorQuery} from "../store/graphql-git/graphql-git.api";
 import {useCallback, useEffect, useMemo, useState} from "react";
+import {useMySelector} from "./reduxHooks";
 
 // Ну и жесть...
 export const useCursorGetter = function (search: string, pages: number, after?: string) {
+    const graphqlStore = useMySelector((state) => state["graphql-git"]);
     const [dispatchRepoCursorAfter] = useLazyGetReposCursorQuery();
     const [result, setResult] = useState<string>('');
     const [fetching, setFetching] = useState<boolean>(true);
 
     const getRepoCursorSkipPage = async function (search: string, pages: number, after?: string): Promise<void> {
-        if (!pages) {
+        if (!pages || graphqlStore.page === pages + 1) {
             setResult('');
             setFetching(false);
             return;
