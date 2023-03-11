@@ -25,9 +25,36 @@
         padding-right: $smallOffset;
         display: flex;
         align-items: center;
+        text-decoration: none;
+
+        .ownerIcon {
+            width: 30px;
+            height: 30px;
+            border-radius: $smallOffset;
+            margin-right: $smallOffset;
+        }
+
+        .repoItemLinkName {
+            font-size: 12px;
+            color: $gray;
+            text-decoration: none;
+            transition: .1s;
+        }
+
+        .repoOwner {
+            font-size: 14px;
+            color: $lightGray;
+            transition: .1s;
+        }
 
         &:hover {
-            color: $white;
+            .repoItemLinkName {
+                color: $lightGray;
+            }
+
+            .repoOwner {
+                color: $white;
+            }
         }
     }
 

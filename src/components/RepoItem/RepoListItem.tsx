@@ -10,7 +10,14 @@ import BorderContainer from "../BorderContainer/BorderContainer";
 const RepoListItem = memo((props: IRepositoryItem) => {
     return (
         <BorderContainer className={css.item}>
-            <Link to={`/info/${props.owner.login}/${ props.name }`} className={css.link}>{ props.name }</Link>
+            <Link to={`/info/${props.owner.login}/${ props.name }`} className={css.link}>
+                <img className={css.ownerIcon} src={props.owner.avatarUrl} alt={props.owner.login}/>
+                <div
+                    className={css.repoItemLinkName}
+                >
+                    { props.owner.login } / <span className={css.repoOwner}>{ props.name }</span>
+                </div>
+            </Link>
             <ABlock
                 className={css.gitLink}
                 href={props.url}
